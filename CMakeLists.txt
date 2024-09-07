@@ -6,9 +6,9 @@ project(${LIB_NAME} CXX)
 ## Build static library
 
 add_library(${LIB_NAME}
-    include/GeometricAlgebra/Matrix.hpp
-    include/GeometricAlgebra/Vector.hpp
     include/GeometricAlgebra/Maths.h src/Maths.cpp
+    include/GeometricAlgebra/Vector.h src/Vector.cpp
+    include/GeometricAlgebra/Multivector.h src/Multivector.cpp
 )
 set_property(TARGET ${LIB_NAME} PROPERTY CXX_STANDARD 20)
 set_target_properties(${LIB_NAME} PROPERTIES LINKER_LANGUAGE CXX)

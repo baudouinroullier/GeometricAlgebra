@@ -6,8 +6,6 @@
 
 namespace maths
 {
-static constexpr double epsilon = 1.e-6;
-
 template <class T>
 constexpr T clamp(T val, T m1, T m2)
 {
