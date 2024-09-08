@@ -22,7 +22,7 @@ public:
     Vec<N>& operator*= (double s) { for(double& v : m_values) v *= s; return *this; }
     Vec<N>& operator/= (double s) { return *this *= 1/s; }
 
-    friend double dot(const Vec<N>& a, const Vec<N>& b) { return std::inner_product(a.m_values.begin(), a.m_values.end(), b.m_values.begin(), b.m_values.end()); }
+    template<int N_> friend double dot(const Vec<N_>& a, const Vec<N_>& b);
 
     double norm1() const { return std::accumulate(m_values.begin(), m_values.end(), 0., [](double acc, double i){ return acc + std::abs(i); }); }
     double norm2() const { return std::sqrt(dot(*this, *this)); }
@@ -32,6 +32,8 @@ public:
 protected:
     std::array<double, N> m_values{};
 };
+
+template<int N> double dot(const Vec<N>& a, const Vec<N>& b) { return std::inner_product(a.m_values.begin(), a.m_values.end(), b.m_values.begin(), 0.); }
 
 template<int N> Vec<N> operator+ (const Vec<N>& a, const Vec<N>& b) { return Vec<N>{a} += b; }
 template<int N> Vec<N> operator- (const Vec<N>& a, const Vec<N>& b) { return Vec<N>{a} -= b; }
