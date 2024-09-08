@@ -47,27 +47,27 @@ template<int N> Vec<N> operator/ (double s, const Vec<N>& a) { return Vec<N>{a} 
 class Vec2 : public Vec<2>
 {
 public:
-    Vec2() {}
-    Vec2(double x, double y) { m_values = {x,y}; }
+    Vec2();
+    Vec2(double x, double y);
 
-    double x() const { return m_values[0]; }
-    double y() const { return m_values[1]; }
-    double& x() { return m_values[0]; }
-    double& y() { return m_values[1]; }
+    double x() const;
+    double y() const;
+    double& x();
+    double& y();
 };
 
 class Vec3 : public Vec<3>
 {
 public:
-    Vec3() {}
-    Vec3(double x, double y, double z) { m_values = {x,y,z}; }
+    Vec3();
+    Vec3(double x, double y, double z);
 
-    double x() const { return m_values[0]; }
-    double y() const { return m_values[1]; }
-    double z() const { return m_values[2]; }
-    double& x() { return m_values[0]; }
-    double& y() { return m_values[1]; }
-    double& z() { return m_values[2]; }
+    double x() const;
+    double y() const;
+    double z() const;
+    double& x();
+    double& y();
+    double& z();
 };
 }
 
