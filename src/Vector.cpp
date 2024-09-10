@@ -1,69 +1,97 @@
 #include "Vector.h"
 
+namespace galg {
+Vec2::Vec2() :
+    m_values{} {}
 
-namespace galg
-{
-Vec2::Vec2() {}
+Vec2::Vec2(double x, double y) :
+    m_values{x, y} {}
 
-Vec2::Vec2(double x, double y)
+Vec2::Vec2(const Vec2& v) :
+    m_values{v.m_values} {}
+
+Vec2::Vec2(Vec2&& v) :
+    m_values{std::move(v.m_values)} {}
+
+Vec2& galg::Vec2::operator=(Vec2 o)
 {
-    m_values = {x, y};
+    m_values = o.m_values;
+    return *this;
 }
 
-double Vec2::x() const
+Vec2 Vec2::operator-() const
 {
-    return m_values[0];
+    Vec2 ret;
+    std::ranges::transform(m_values, ret.m_values.begin(), std::negate{});
+    return ret;
 }
 
-double Vec2::y() const
+Vec2& Vec2::operator+=(const Vec2& o)
 {
-    return m_values[1];
+    std::ranges::transform(m_values, o.m_values, m_values.begin(), std::plus{});
+    return *this;
 }
 
-double& Vec2::x()
+Vec2& Vec2::operator-=(const Vec2& o)
 {
-    return m_values[0];
+    return *this += (-o);
 }
 
-double& Vec2::y()
+Vec2& Vec2::operator*=(double s)
 {
-    return m_values[1];
+    for (double& v : m_values)
+        v *= s;
+    return *this;
 }
 
-Vec3::Vec3() {}
-
-Vec3::Vec3(double x, double y, double z)
+double Vec2::norm1() const
 {
-    m_values = {x, y, z};
+    return std::accumulate(m_values.begin(), m_values.end(), 0., [](double acc, double i) { return acc + std::abs(i); });
 }
 
-double Vec3::x() const
+double Vec2::norm2() const
 {
-    return m_values[0];
+    return std::sqrt(dot(*this, *this));
 }
 
-double Vec3::y() const
+double Vec2::normP(double p) const
 {
-    return m_values[1];
+    return std::pow(std::accumulate(m_values.begin(), m_values.end(), 0., [p](double acc, double i) { return acc + std::pow(i, p); }), 1. / p);
 }
 
-double Vec3::z() const
+double Vec2::normInf(double p) const
 {
-    return m_values[2];
+    return std::ranges::max(m_values);
 }
 
-double& Vec3::x()
+Vec2 operator+(const Vec2& a, const Vec2& b)
 {
-    return m_values[0];
+    return Vec2{a} += b;
 }
 
-double& Vec3::y()
+Vec2 operator-(const Vec2& a, const Vec2& b)
 {
-    return m_values[1];
+    return Vec2{a} -= b;
 }
 
-double& Vec3::z()
+Vec2 operator*(const Vec2& a, double s)
 {
-    return m_values[2];
+    return Vec2{a} *= s;
 }
+
+Vec2 operator/(const Vec2& a, double s)
+{
+    return Vec2{a} /= s;
 }
+
+Vec2 operator*(double s, const Vec2& a)
+{
+    return Vec2{a} *= s;
+}
+
+Vec2 operator/(double s, const Vec2& a)
+{
+    return Vec2{a} /= s;
+}
+
+} // namespace galg
