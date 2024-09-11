@@ -59,9 +59,9 @@ double Vec2::normP(double p) const
     return std::pow(std::accumulate(m_values.begin(), m_values.end(), 0., [p](double acc, double i) { return acc + std::pow(i, p); }), 1. / p);
 }
 
-double Vec2::normInf(double p) const
+double Vec2::normInf() const
 {
-    return std::ranges::max(m_values);
+    return std::abs(std::ranges::max(m_values));
 }
 
 Vec2 operator+(const Vec2& a, const Vec2& b)

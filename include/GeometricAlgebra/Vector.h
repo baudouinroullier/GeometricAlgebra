@@ -33,7 +33,7 @@ public:
     double norm1() const;
     double norm2() const;
     double normP(double p) const;
-    double normInf(double p) const;
+    double normInf() const;
 
     double x() const { return m_values[0]; }
     double y() const { return m_values[1]; }
