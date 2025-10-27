@@ -34,6 +34,7 @@ public:
     double norm2() const;
     double normP(double p) const;
     double normInf() const;
+    double square_norm2() const;
 
     double x() const { return m_values[0]; }
     double y() const { return m_values[1]; }

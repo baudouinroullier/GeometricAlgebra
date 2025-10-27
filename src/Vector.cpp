@@ -64,6 +64,11 @@ double Vec2::normInf() const
     return std::abs(std::ranges::max(m_values));
 }
 
+double Vec2::square_norm2() const
+{
+    return dot(*this, *this);
+}
+
 Vec2 operator+(const Vec2& a, const Vec2& b)
 {
     return Vec2{a} += b;

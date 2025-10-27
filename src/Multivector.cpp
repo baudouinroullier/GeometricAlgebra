@@ -86,6 +86,16 @@ Multivector2& Multivector2::operator*=(const Multivector2& o)
     return *this;
 }
 
+Multivector2 Multivector2::conj() const
+{
+    return {-vector(), std::conj(rotor())};
+}
+
+Multivector2 Multivector2::inverse() const
+{
+    return conj() / (std::norm(rotor()) - dot(vector(), vector()));
+}
+
 Multivector2& Multivector2::operator*=(double s)
 {
     m_vector *= s;
